@@ -34,7 +34,8 @@ uint dht_read(uint* wet,uint* tmp,uchar* test)
             while (data);
         }
     }
-    *wet=rTime;
+    if (rTime>3)
+        *wet=rTime;
     rTime=0x0000;
     for (i=0;i<16;i++)
     {

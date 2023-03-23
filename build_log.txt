@@ -18,7 +18,7 @@ compiling main.c...
     CALLER1: ?PR?TIMES?MAIN
     CALLER2: ?C_C51STARTUP
 
-Program Size: data=58.1 xdata=0 code=3247
+Program Size: data=58.1 xdata=0 code=3254
 þcreating hex file from ".\Objects\Project"...
 ÿþ".\Objects\Project" - 0 Error(s), 5 Warning(s).
 Build Time Elapsed:  00:00:01

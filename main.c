@@ -130,7 +130,7 @@ void times() interrupt NUM1
     if (time>=3000)
     {
         dht_start();
-        t1=dht_read(&t1, &t2,0);
+        dht_read(&t1, &t2,0);
         time=0;
     }
 
