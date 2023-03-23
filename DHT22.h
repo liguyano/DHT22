@@ -11,6 +11,8 @@ void Delay1000ms();
 void Delay20us();
 void Delay80us();
 void dht_start();
-uint dht_read();
+uint dht_read(uint* wet,uint* tmp,uchar* test);
+void Timer1Init(void);
+
 
 #endif //PRO_DHT22_DHT22_H

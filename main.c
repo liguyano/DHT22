@@ -5,6 +5,7 @@
 #include <MATH.H>
 static uint time=0;
 static uint t1=0;
+static uint t2=0;
 unsigned char code SMG_duanma[18]=
 {0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,
 0x80,0x90,0x88,0x80,0xc6,0xc0,0x86,0x8e,
@@ -87,29 +88,49 @@ void Timer0Init(void)		//1毫秒@11.0592MHz
     TR0 = 1;		//定时器0开始计时
 }
 
+void show3intNUm(unsigned int num,unsigned char start,unsigned char domma)
+{
+    unsigned char h,t=0;
+    h=num/100;
 
+    DIAPlaySMG_Bit(SMG_duanma[h],start+0);
+    DelaySMG(50);
+    num=num%100;
+    t=num/10;
+    if (domma)
+        DIAPlaySMG_Bit(SMG_duanma[t]&0x7f,start+1);
+    else
+        DIAPlaySMG_Bit(SMG_duanma[t],start+1);DelaySMG(50);
+    DelaySMG(50);
+    num%=10;
+    DIAPlaySMG_Bit(SMG_duanma[num],start+2);DelaySMG(50);
+
+}
 void main() {
+
+    uchar test;
     Timer0Init();
 
     SelectHC573(5);
     P0&= 0xBF;
     P2&=0x1f;
     dht_start();
-    t1=dht_read();
+    dht_read(&t1,&t2,&test);
     while (1)
     {
-        showIntNUm(t1);
+        show3intNUm(t1,0,1);
+        show3intNUm(t2,4, 1);
         Delay20us();
-
     }
 }
 void times() interrupt NUM1
 {   time++;
     TL0 = 0xCD;		//设置定时初值
     TH0 = 0xD4;		//设置定时初值
-    if (time>=1000)
+    if (time>=3000)
     {
-        t1=dht_read();
+        dht_start();
+        t1=dht_read(&t1, &t2,0);
         time=0;
     }
 
