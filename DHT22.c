@@ -14,16 +14,7 @@ void dht_start()
 uint dht_read(uint* wet,uint* tmp,uchar* test)
 {uint rTime=0;
     uchar i;
-    Timer1Init();
-    TL1 = 0x00;		//设置定时初值
-    TH1 = 0x00;		//设置定时初值
-    TR1 = 1;		//定时器1开始计时
-    while (data && TF1!=0);
-    TR1=0;
-    if (TF1)
-    {
-        return 2222;
-    }
+    while (data );
     for (i=0;i<16;i++)
     {
         while (!data);
@@ -60,14 +51,6 @@ uint dht_read(uint* wet,uint* tmp,uchar* test)
         }
     }
     *test=rTime;
-}
-void Timer1Init(void)		//1毫秒@11.0592MHz
-{
-    AUXR |= 0x40;		//定时器时钟1T模式
-    TMOD &= 0x0F;		//设置定时器模式
-
-    TF1 = 0;		//清除TF1标志
-
 }
 void Delay1000ms()		//@11.0592MHz
 {
